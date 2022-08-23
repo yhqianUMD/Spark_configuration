@@ -1,0 +1,54 @@
+This post introduced a method to configure pyspark on Yarn Hadoop cluster
+
+Main steps:
+1) create a Conda environment.
+2) install corresponding packages. step 1) and 2) can be combined by creating a virtual environment with a yml file.
+3) add several jar files which are needed to run Apache Sedona.
+4) pack the conda environment into an archive file and make it usable on both the driver and executor.
+
+
+1) create a Conda environment
+This step can be combined with step 2).
+Command of creating a conda environment using a yml file: conda env create -f yuehui_pyspark.yml
+The yuehui_pyspark.yml defines the name of the virtual environment, the channels and dependencies.
+Here is the link to create a virtual environment: https://docs.conda.io/projects/conda/en/stable/user-guide/tasks/manage-environments.html#removing-an-environment
+
+2) install corresponding packages
+In addition to the dependencies listed in the yuehui_pyspark.yml, we also need to install Apache Sedona.
+
+Command to install Apache Sedona:
+conda activate myenv
+pip install apache-sedona
+
+3) add the jar files
+Core line: config('spark.jars','sedona-core-2.4_2.11-1.0.0-incubating.jar,sedona-sql-2.4_2.11-1.0.0-incubating.jar,sedona-python-adapter-2.4_2.11-1.0.0-incubating.jar,sedona-viz-2.4_2.11-1.0.0-incubating.jar,geotools-wrapper-geotools-24.0.jar')
+
+Complete example:
+spark = SparkSession \
+.builder \
+.appName("test_test_2") \
+.master('yarn') \
+.config("spark.serializer", KryoSerializer.getName) \
+.config("spark.kryo.registrator", SedonaKryoRegistrator.getName) \
+.config('spark.jars','sedona-core-2.4_2.11-1.0.0-incubating.jar,sedona-sql-2.4_2.11-1.0.0-incubating.jar,sedona-python-adapter-2.4_2.11-1.0.0-incubating.jar,sedona-viz-2.4_2.11-1.0.0-incubating.jar,geotools-wrapper-geotools-24.0.jar') \
+.config('spark.executor.memory', '10g') \
+.config('spark.driver.memory', '10g') \
+.config('spark.sql.shuffle.partitions', 1024) \
+.config('spark.executor.instances', '8') \
+.config('spark.executor.cores', '4') \
+.config('spark.rpc.message.maxSize', '1024') \
+.config('spark.yarn.dist.archives', '/local/data/yuehui/py37.tar.gz#environment') \
+.getOrCreate()
+
+4) pack the conda environment into an archive file
+Here is the instruction about how to pack the conda environment: https://www.databricks.com/blog/2020/12/22/how-to-manage-python-dependencies-in-pyspark.html
+
+Command to pack the conda environment: conda pack -f -o myenv.tar.gz
+
+import os
+from pyspark.sql import SparkSession
+
+os.environ['PYSPARK_PYTHON'] = "./environment/bin/python"
+spark = SparkSession.builder.config(
+    "spark.archives",  # 'spark.yarn.dist.archives' in YARN.
+    "pyspark_conda_env.tar.gz#environment").getOrCreate()
