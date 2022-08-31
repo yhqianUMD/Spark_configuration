@@ -1,0 +1,6 @@
+Here is the basic steps to connect our GEOG remote server
+(1) install an OpenSSH client, which has been inherently installed in Mac and Windows
+(2) install VScode
+(3) install a Remote Development extension pack in VScode
+(4) running the command from a VScode (configure SSH hosts): ssh username@cgishdp2.umd.edu
+(5) input username and passcodes, configure the default folder
