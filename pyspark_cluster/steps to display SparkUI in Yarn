@@ -10,6 +10,11 @@ The following instructions are used to display the SparkUI of spark deployed in 
    5901 is the local port you want to display in your local Mac; 5902 is the saved port.
    Note: your terminal for Mac or putty for Windows should be active all the time.
 6. Open your VNC viewer, input "localhost:5901"
+7. In the terminal of VNC viewer, input "xdg-open http://mn3.hdp2.cgis.gshpc.umd.edu:18089/"
+
+If you want to reconnect to the VNC viewer next time
+1) Open the terminal of Mac, input "ssh -L 5901:cgishdp2:5902 user@cgishdp2.umd.edu"
+2) Open your VNC viewer, in the terminal of VNC viewer, input "xdg-open http://mn3.hdp2.cgis.gshpc.umd.edu:18089/"
 
 Notes:
 1. error "a vnc server is already running as XX": you can solve this problem by "vncserver -kill :XX"
