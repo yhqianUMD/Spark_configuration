@@ -1,0 +1,40 @@
+Reference link: https://jentekllc8888.medium.com/quick-and-easy-setup-graphframes-with-apache-spark-for-python-98b716c91310
+
+1. On jupyter notebook of windows, use the command "!where python" to list the available python in your laptop.
+
+2. Make sure that the python version of driver node and worker node is the same. In most cases, your Spark cluster administrators should have setup these properties (spark-defaults.conf) correctly and you don't need to worry.
+If the python version is not set, we can refer to the following link to add environment variables.
+
+environment variables:
+PYSPARK_PYTHON=D:\Software\Study\Miniconda\envs\python37\python.exe
+PYSPARK_DRIVER_PYTHON=D:\Software\Study\Miniconda\envs\python37\python.exe
+
+https://sparkbyexamples.com/spark/spark-exception-python-in-worker-has-different-version-3-4-than-that-in-driver-2-7-pyspark-cannot-run-with-different-minor-versions/
+
+3. Download the graphframes from the https://spark-packages.org/package/graphframes/graphframes
+
+4. Unzip it with the following command.
+- jar -xvf graphframes-0.8.1-spark3.0-s_2.12.jar graphframes
+Then, the graphframes-0.8.1-spark3.0-s_2.12.jar will be unzipped to the directory of graphframes.
+
+5. Import the graphframes in pyspark notebook like import an external python packages
+
+import sys
+sys.path.append("D:/Software/Study/Spark/spark-3.1.3-bin-hadoop3.2/jars")
+import graphframes
+from graphframes import *
+
+v = spark.createDataFrame([
+  ("a", "Alice", 34),
+  ("b", "Bob", 36),
+  ("c", "Charlie", 30),
+], ["id", "name", "age"])
+
+e = spark.createDataFrame([
+  ("a", "b", "friend"),
+  ("b", "c", "follow"),
+  ("c", "b", "follow"),
+], ["src", "dst", "relationship"])
+
+g = GraphFrame(v, e)
+g.inDegrees.show()
