@@ -6,3 +6,6 @@
 
 4. If you do not have access to system environment variables, you cannot override default programs on the system path by using the the user path. Instead, you must use a fully qualified path if you must use a specific version.
 e.g., command "C:/Program Files (x86)/Java/jre6/bin/java -version" instead of "java -version".
+
+5. os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages graphframes:graphframes:0.8.2-spark3.1-s_2.12' is used to set the user environment variable "PYSPARK_SUBMIT_ARGS".
+ But it will be effective only for the current process where it was assigned and it will not change the value permanently.
