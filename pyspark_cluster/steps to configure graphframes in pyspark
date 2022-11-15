@@ -1,5 +1,6 @@
 Reference link: https://jentekllc8888.medium.com/quick-and-easy-setup-graphframes-with-apache-spark-for-python-98b716c91310
 
+Configure GraphFrame on laptop
 1. On jupyter notebook of windows, use the command "!where python" to list the available python in your laptop.
 
 2. Make sure that the python version of driver node and worker node is the same. In most cases, your Spark cluster administrators should have setup these properties (spark-defaults.conf) correctly and you don't need to worry.
@@ -38,3 +39,30 @@ e = spark.createDataFrame([
 
 g = GraphFrame(v, e)
 g.inDegrees.show()
+
+
+Configure GraphFrame on cluster
+The steps to configure the GraphFrame on cluster is similar to that on laptop
+1. On jupyter lab of cluster, use the command "print('PySpark Version :',spark.version)" to show the pyspark version of your cluster.
+On my end, the pyspark version is "PySpark Version : 2.4.0-cdh6.3.2" in notebook, while it is "Spark 3.1.1, Scala 2.12.10, Java 1.8.0_131" in the spark-shell.
+
+2. Make sure that the python version of driver node and worker node is the same.
+You don't need to worry about that because you could achieve it by using the configure in notebook: .config('spark.yarn.dist.archives', '/local/data/yuehui/py37.tar.gz#environment')
+Refer to the link below for more details.
+https://www.databricks.com/blog/2020/12/22/how-to-manage-python-dependencies-in-pyspark.html
+
+3. Download the graphframes from the https://spark-packages.org/package/graphframes/graphframes
+
+4. Unzip it with the following command.
+- jar -xvf graphframes-0.8.0-spark2.4-s_2.11.jar graphframes
+Then, the graphframes-0.8.0-spark2.4-s_2.11.jar will be unzipped to the directory of graphframes.
+
+5. Remember to include it in the notebook like the follwoing.
+.config('spark.jars','graphframes-0.8.0-spark2.4-s_2.11.jar')
+
+6. Import the graphframes in pyspark notebook like import an external python packages
+
+import sys
+sys.path.append("/local/data/yuehui/pyspark/DataFrame/code")
+import graphframes
+from graphframes import *
