@@ -1,7 +1,7 @@
 The following instructions are used to display the SparkUI of spark deployed in Yarn cluster on Mac.
 1. Configure your cluster account using putty, remember your source port in the "Connection->SSH->Tunnels".
 2. Open the terminal, connect to your cluster
-   -ssh user@cgishdp2.@umd.edu
+   -ssh qiany@cgishdp2.umd.edu
 3. Start a new session for the vncserver
    -vncserver -geometry 1200x800 :2
    Note: the ":2" should be the port you saved (e.g., 5902 for 590X)
