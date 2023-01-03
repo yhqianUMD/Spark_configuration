@@ -3,17 +3,17 @@ The following instructions are used to display the SparkUI of spark deployed in 
 2. Open the terminal, connect to your cluster
    -ssh qiany@cgishdp2.umd.edu
 3. Start a new session for the vncserver
-   -vncserver -geometry 1200x800 :2
-   Note: the ":2" should be the port you saved (e.g., 5902 for 590X)
+   -vncserver -geometry 1200x800 :5
+   Note: the ":5" should be the port you saved (e.g., 5905 for 590X)
 4. input "exit" in the terminal
-5. input "ssh -L 5901:cgishdp2:5902 user@cgishdp2.umd.edu"
-   5901 is the local port you want to display in your local Mac; 5902 is the saved port.
+5. input "ssh -L 5901:cgishdp2:5905 qiany@cgishdp2.umd.edu"
+   5901 is the local port you want to display in your local Mac; 5905 is the saved port.
    Note: your terminal for Mac or putty for Windows should be active all the time.
 6. Open your VNC viewer, input "localhost:5901"
 7. In the terminal of VNC viewer, input "xdg-open http://mn3.hdp2.cgis.gshpc.umd.edu:18089/"
 
 If you want to reconnect to the VNC viewer next time
-1) Open the terminal of Mac, input "ssh -L 5901:cgishdp2:5902 qiany@cgishdp2.umd.edu"
+1) Open the terminal of Mac, input "ssh -L 5901:cgishdp2:5905 qiany@cgishdp2.umd.edu"
 2) Open your VNC viewer, in the terminal of VNC viewer, input "xdg-open http://mn3.hdp2.cgis.gshpc.umd.edu:18089/"
 
 Notes:
