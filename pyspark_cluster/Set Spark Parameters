@@ -1,0 +1,25 @@
+1. Generally, set spark.executor.cores as 5.
+
+2. Set spark.executor.instances:
+Assume we have num_cores cores in total, the num_executor should be (num_cores/5) - 1
+
+3. Set spark.executor.memory：
+Assume we have M GB memory in total, the spark.executor.memory should be M / spark.executor.instances / 1.1
+
+4. Set spark.executor.memoryOverhead
+it should almost be M / spark.executor.instances * 0.1
+
+5. Set spark.driver.cores, spark.driver.memory, spark.driver.memoryOverhead:
+they could be almost the same as one executor
+
+6. Set spark.sql.shuffle.partitions:
+It determines how many partitions are used when a DataFrame is shuffled between nodes, e.g., joins or aggregations.
+It should be almost 3 to 4 times of available cores, 3 * spark.executor.instances * spark.executor.cores. If the dataset is small, it can be 1 to 2 times of available cores.
+The size of each partition should be 100~200 MB.
+https://stackoverflow.com/questions/45704156/what-is-the-difference-between-spark-sql-shuffle-partitions-and-spark-default-pa
+
+7. Set spark.sparkContext.defaultParallelism：
+Default number of partitions in RDDs returned by transformations like join, reduceByKey, and parallelize when not set by user.
+It is only useful for raw RDDs and loading files.
+
+8. Remember to set spark.sql.autoBroadcastJoinThreshold as false.
