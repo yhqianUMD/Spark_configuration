@@ -13,7 +13,7 @@ The following instructions are used to display the SparkUI of spark deployed in 
 7. In the terminal of VNC viewer, input "xdg-open http://mn3.hdp2.cgis.gshpc.umd.edu:18089/"
 
 If you want to reconnect to the VNC viewer next time
-1) Open the terminal of Mac, input "ssh -L 5901:cgishdp2:5905 qiany@cgishdp2.umd.edu"
+1) Open the terminal of Mac, input "ssh -L 5916:cgishdp2:5916 qiany@cgishdp2.umd.edu"
 2) Open your VNC viewer, in the terminal of VNC viewer, input "xdg-open http://mn3.hdp2.cgis.gshpc.umd.edu:18089/"
 
 Notes:
