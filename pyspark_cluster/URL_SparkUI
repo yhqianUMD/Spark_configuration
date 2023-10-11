@@ -1,0 +1,5 @@
+1. The URL to display Spark History Server
+http://mn3.hdp2.cgis.gshpc.umd.edu:18089/
+
+2. The URL to display hadoop New, New_saving, Submitted, Accepted, Running Applications:
+http://mn2.hdp2.cgis.gshpc.umd.edu:8088/cluster/scheduler?openQueues=root.default#root.users#root
