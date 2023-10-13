@@ -1,0 +1,1 @@
+1. To monitor the Storage Memory of an object or DataFrame in Spark, we can cache and count this object. The storage size of this DataFrame will be displayed in the Storage tab of SparkUI.
